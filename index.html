@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تواصل معنا</title>
     <style>
-        /* ستايل الألوان الفخم اللي بتفضله */
         :root {
-            --bg-color: #040d06; /* أخضر داكن مائل للأسود */
-            --accent-gold: #d4af37; /* ذهبي */
+            --bg-color: #040d06; 
+            --accent-gold: #d4af37;
             --white: #f0f4f0;
         }
 
         body, html {
-            height: 100%; margin: 0;
+            height: 100%; margin: 0; padding: 0;
             background-color: var(--bg-color);
-            color: var(--white);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex; align-items: center; justify-content: center;
             overflow: hidden;
         }
 
@@ -26,27 +23,35 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--bg-color);
             display: flex; align-items: center; justify-content: center;
-            z-index: 10; transition: opacity 0.6s ease;
+            z-index: 20; transition: opacity 0.6s ease;
         }
 
-        /* الصفحة الرئيسية (مخفية في البداية) */
+        /* الصفحة الرئيسية */
         #main-content {
-            display: none; flex-direction: column; align-items: center;
-            text-align: center; width: 90%; max-width: 400px;
+            display: none; position: relative; width: 100%; height: 100vh;
             opacity: 0; transition: opacity 0.8s ease;
         }
 
+        /* جعل الصورة بطول وعرض الشاشة كلها */
         .hero-image {
-            width: 100%; border-radius: 20px;
-            margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%; height: 100%;
+            object-fit: cover; /* عشان الصورة تملا الشاشة من غير ما تتمط */
+            position: absolute; top: 0; left: 0; z-index: 1;
         }
 
-        /* ستايل الأزرار */
+        /* حاوية الزرار فوق الصورة */
+        .button-container {
+            position: absolute; bottom: 10%; left: 50%;
+            transform: translateX(-50%); z-index: 10;
+            width: 100%; text-align: center;
+        }
+
         .btn {
-            padding: 15px 40px; font-size: 1.1rem; font-weight: bold;
+            padding: 18px 45px; font-size: 1.2rem; font-weight: bold;
             border: none; border-radius: 50px; cursor: pointer;
             transition: transform 0.2s, background-color 0.3s;
             text-decoration: none; display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
         .btn-gold { background-color: var(--accent-gold); color: #000; }
@@ -54,9 +59,9 @@
 
         .btn-whatsapp {
             background-color: #25d366; color: white;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
         }
-        .btn-whatsapp:hover { transform: scale(1.05); background-color: #1ebe57; }
+        .btn-whatsapp:hover { transform: scale(1.1); background-color: #1ebe57; }
     </style>
 </head>
 <body>
@@ -66,14 +71,16 @@
         <button class="btn btn-gold" onclick="showContent()">إضغط هنا</button>
     </div>
 
-    <!-- الشاشة الثانية: الصورة وزرار الواتساب -->
+    <!-- الشاشة الثانية: الصورة الكاملة وزرار الواتساب -->
     <div id="main-content">
-        <img src="رابط_الصورة_هنا" alt="Welcome" class="hero-image">
+        <!-- حط رابط صورتك هنا -->
+        <img src="رابط_الصورة_هنا" alt="Background" class="hero-image">
         
-        <!-- استبدل الرقم برقمك (بدون أصفار أو علامة + في البداية) -->
-        <a href="https://wa.me/201234567890" target="_blank" class="btn btn-whatsapp">
-            تواصل عبر واتساب
-        </a>
+        <div class="button-container">
+            <a href="https://wa.me/201125240606?utm_source=chatgpt.com" target="_blank" class="btn btn-whatsapp">
+                دوس هنا علشان نعمل واحد
+            </a>
+        </div>
     </div>
 
     <script>
@@ -81,13 +88,10 @@
             const splash = document.getElementById('splash-screen');
             const content = document.getElementById('main-content');
 
-            // إخفاء الشاشة الأولى
             splash.style.opacity = '0';
             setTimeout(() => {
                 splash.style.display = 'none';
-                
-                // إظهار المحتوى الرئيسي
-                content.style.display = 'flex';
+                content.style.display = 'block';
                 setTimeout(() => {
                     content.style.opacity = '1';
                 }, 50);
@@ -96,4 +100,3 @@
     </script>
 </body>
 </html>
-
