@@ -3,34 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة الأسئلة</title>
+    <title>تواصل معنا</title>
     <style>
-        body { background-color: #0b1a10; color: #d4af37; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .card-container { width: 300px; height: 450px; border: 2px solid #d4af37; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.5); background: #000; display: flex; align-items: center; justify-content: center; }
-        img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        button { margin-top: 30px; padding: 15px 30px; font-size: 18px; cursor: pointer; background: #d4af37; color: #000; border: none; border-radius: 5px; font-weight: bold; }
-        button:hover { background: #f1c40f; }
+        :root {
+            --bg-color: #040d06; 
+            --accent-gold: #d4af37;
+            --white: #f0f4f0;
+        }
+
+        body, html {
+            height: 100%; margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* تنسيق عام لجميع الصفحات */
+        .page {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.6s ease;
+            z-index: 10;
+        }
+
+        .active { display: flex; opacity: 1; z-index: 20; }
+
+        .hero-image {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            position: absolute; top: 0; left: 0; z-index: 1;
+        }
+
+        .button-container {
+            position: absolute; bottom: 10%; left: 50%;
+            transform: translateX(-50%); z-index: 10;
+            width: 100%; text-align: center;
+        }
+
+        .btn {
+            padding: 18px 45px; font-size: 1.2rem; font-weight: bold;
+            border: none; border-radius: 50px; cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            text-decoration: none; display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-gold { background-color: var(--accent-gold); color: #000; }
+        .btn-gold:hover { transform: scale(1.05); background-color: #f1c40f; }
+
+        .btn-whatsapp {
+            background-color: #25d366; color: white;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        }
+        .btn-whatsapp:hover { transform: scale(1.1); background-color: #1ebe57; }
     </style>
 </head>
 <body>
 
-    <div class="card-container">
-        <img id="cardImage" src="رابط_صورة_البداية_هنا" alt="Card">
+    <!-- الصفحة 1: البداية -->
+    <div id="page1" class="page active">
+        <button class="btn btn-gold" onclick="nextPage(1, 2)">إضغط هنا</button>
     </div>
 
-    <button onclick="nextCard()">سؤال عشوائي</button>
+    <!-- الصفحة 2: الصورة الأولى -->
+    <div id="page2" class="page">
+        <img src="https://i.postimg.cc/507gmG2X/IMG-0994.jpg" alt="Background 1" class="hero-image">
+        <div class="button-container">
+            <button class="btn btn-gold" onclick="nextPage(2, 3)">التالي</button>
+        </div>
+    </div>
+
+    <!-- الصفحة 3: الصورة الثانية -->
+    <div id="page3" class="page">
+        <img src="https://i.postimg.cc/xCx5P71k/IMG-0993.jpg" alt="Background 2" class="hero-image">
+        <div class="button-container">
+            <button class="btn btn-gold" onclick="nextPage(3, 4)">اضغط للمتابعة</button>
+        </div>
+    </div>
+
+    <!-- الصفحة 4: زرار الواتساب النهائي -->
+    <div id="page4" class="page">
+        <div class="button-container" style="bottom: 50%; transform: translate(-50%, 50%);">
+            <a href="https://wa.me/201125240606" target="_blank" class="btn btn-whatsapp">
+                دوس هنا علشان نعمل واحد
+            </a>
+        </div>
+    </div>
 
     <script>
-        // حط هنا روابط الصور اللي رفعتها
-        const images = [
-            "رابط_الصورة_1",
-            "رابط_الصورة_2",
-            "رابط_الصورة_3"
-        ];
+        function nextPage(currentId, nextId) {
+            const current = document.getElementById('page' + currentId);
+            const next = document.getElementById('page' + nextId);
 
-        function nextCard() {
-            const randomIndex = Math.floor(Math.random() * images.length);
-            document.getElementById('cardImage').src = images[randomIndex];
+            current.style.opacity = '0';
+            setTimeout(() => {
+                current.classList.remove('active');
+                next.classList.add('active');
+                setTimeout(() => {
+                    next.style.opacity = '1';
+                }, 50);
+            }, 600);
         }
     </script>
 </body>
