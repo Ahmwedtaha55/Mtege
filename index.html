@@ -3,107 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تواصل معنا</title>
+    <title>موقعي المتكامل</title>
     <style>
-        :root {
-            --bg-color: #040d06; 
-            --accent-gold: #d4af37;
-            --white: #f0f4f0;
-        }
-
+        /* تنسيقات عامة */
         body, html {
-            height: 100%; margin: 0; padding: 0;
-            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* تنسيق عام لجميع الصفحات */
         .page {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            display: none; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.6s ease;
-            z-index: 10;
+            display: none; /* إخفاء كل الصفحات افتراضياً */
+            height: 100vh;
+            width: 100%;
+            text-align: center;
         }
 
-        .active { display: flex; opacity: 1; z-index: 20; }
-
-        .hero-image {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            position: absolute; top: 0; left: 0; z-index: 1;
+        .active {
+            display: block; /* إظهار الصفحة النشطة فقط */
         }
 
-        .button-container {
-            position: absolute; bottom: 10%; left: 50%;
-            transform: translateX(-50%); z-index: 10;
-            width: 100%; text-align: center;
+        /* تنسيق الصفحة الأولى */
+        #page1 {
+            background-image: url('https://i.postimg.cc/507gmG2X/IMG-0994.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: none; 
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 60px;
+        }
+        
+        #page1.active { display: flex; }
+
+        /* تنسيق الصفحة الثانية */
+        #page2 {
+            padding-top: 20px;
+            background-color: #fff;
         }
 
+        #page2 img {
+            max-width: 90%;
+            max-height: 70vh;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* تنسيق الأزرار */
         .btn {
-            padding: 18px 45px; font-size: 1.2rem; font-weight: bold;
-            border: none; border-radius: 50px; cursor: pointer;
-            transition: transform 0.2s, background-color 0.3s;
-            text-decoration: none; display: inline-block;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background-color: #007bff;
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, background-color 0.2s;
+            margin: 10px;
         }
 
-        .btn-gold { background-color: var(--accent-gold); color: #000; }
-        .btn-gold:hover { transform: scale(1.05); background-color: #f1c40f; }
+        .btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
 
         .btn-whatsapp {
-            background-color: #25d366; color: white;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            background-color: #25D366;
         }
-        .btn-whatsapp:hover { transform: scale(1.1); background-color: #1ebe57; }
+
+        .btn-whatsapp:hover {
+            background-color: #1ebe57;
+        }
+
+        /* الصفحة الثالثة */
+        #page3 {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+        #page3.active { display: flex; }
+
     </style>
 </head>
 <body>
 
-    <!-- الصفحة 1: البداية -->
+    <!-- الصفحة الأولى -->
     <div id="page1" class="page active">
-        <button class="btn btn-gold" onclick="nextPage(1, 2)">إضغط هنا</button>
+        <button class="btn" onclick="showPage('page2')">اضغط التالي</button>
     </div>
 
-    <!-- الصفحة 2: الصورة الأولى -->
+    <!-- الصفحة الثانية -->
     <div id="page2" class="page">
-        <img src="https://i.postimg.cc/507gmG2X/IMG-0994.jpg" alt="Background 1" class="hero-image">
-        <div class="button-container">
-            <button class="btn btn-gold" onclick="nextPage(2, 3)">التالي</button>
-        </div>
+        <img src="https://i.postimg.cc/xCx5P71k/IMG-0993.jpg" alt="صورة الصفحة الثانية">
+        <br><br>
+        <a href="https://wa.me/201125240606" class="btn btn-whatsapp">دوس هنا علشان تعمل واحد</a>
+        <br><br>
+        <button class="btn" onclick="showPage('page3')">التالي</button>
     </div>
 
-    <!-- الصفحة 3: الصورة الثانية -->
+    <!-- الصفحة الثالثة -->
     <div id="page3" class="page">
-        <img src="https://i.postimg.cc/xCx5P71k/IMG-0993.jpg" alt="Background 2" class="hero-image">
-        <div class="button-container">
-            <button class="btn btn-gold" onclick="nextPage(3, 4)">اضغط للمتابعة</button>
-        </div>
-    </div>
-
-    <!-- الصفحة 4: زرار الواتساب النهائي -->
-    <div id="page4" class="page">
-        <div class="button-container" style="bottom: 50%; transform: translate(-50%, 50%);">
-            <a href="https://wa.me/201125240606" target="_blank" class="btn btn-whatsapp">
-                دوس هنا علشان نعمل واحد
-            </a>
-        </div>
+        <h1>تم بنجاح!</h1>
+        <p>شكراً لزيارتك لموقعنا.</p>
+        <button class="btn" onclick="showPage('page1')">العودة للبداية</button>
     </div>
 
     <script>
-        function nextPage(currentId, nextId) {
-            const current = document.getElementById('page' + currentId);
-            const next = document.getElementById('page' + nextId);
+        // وظيفة التنقل بين الصفحات
+        function showPage(pageId) {
+            // إخفاء جميع الصفحات
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
 
-            current.style.opacity = '0';
-            setTimeout(() => {
-                current.classList.remove('active');
-                next.classList.add('active');
-                setTimeout(() => {
-                    next.style.opacity = '1';
-                }, 50);
-            }, 600);
+            // إظهار الصفحة المطلوبة فقط
+            document.getElementById(pageId).classList.add('active');
+            
+            // التمرير لأعلى الصفحة تلقائياً
+            window.scrollTo(0, 0);
         }
     </script>
+
 </body>
 </html>
